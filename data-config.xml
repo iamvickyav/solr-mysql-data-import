@@ -1,0 +1,18 @@
+<dataConfig>
+<dataSource type="JdbcDataSource" 
+            driver="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/solr_db" 
+            user="root" 
+            password="rootroot"/>
+<document>
+<entity name="product"  
+    pk="id"
+    query="select id,name from products"
+    deltaImportQuery="SELECT id,name from products WHERE id='${dih.delta.id}'"
+    deltaQuery="SELECT id FROM products  WHERE updated_at > '${dih.last_index_time}'"
+    >
+     <field column="id" name="id"/>
+     <field column="name" name="name"/>       
+</entity>
+</document>
+</dataConfig>
